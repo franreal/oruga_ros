@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="oruga" pkg="oruga_bringup" type="oruga" />
+
+</launch>
+

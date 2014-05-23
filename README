@@ -1,0 +1,14 @@
+Colección de paquetes ROS que intervienen en el control del robot oruga del GRVC.
+
+- serialcomm: Este paquete implementa una librería que nos simplifica las comunicaciones con el puerto serie. Nos abstrae del más bajo nivel hardware y nos ofrece herramientas que permiten la exclusión mutua en regiones de memoria compartida. Gracias a esto último podemos desacoplar en el tiempo las comunicaciones ROS con las del puerto serie.
+
+- oruga_msgs: En este paquete se definen los tipos de datos propios que usaremos en nuestro sistema ROS. Por el momento únicamente se incluye ToOrugaData, que se define de la siguiente manera:
+
+  -- uint8 code: correspondiente a los 8 bits del código de operación del protocolo.
+
+  -- uint8[] value: vector de longitud variable de elementos de 8 bits, correspondientes a los valores que siguen al código de operación en la trama definida por el protocolo.
+
+- oruga_bringup: Ideado para contener todo lo necesario en la inicialización del robot. De momento sólo implementa el nodo oruga que, haciendo uso de la librería serialcomm, gestiona las comunicaciones con el puerto serie. Este nodo recibe mensajes del tipo ToOrugaData de la red ROS para generar y enviar a la placa de control la trama correspondiente según el protocolo.
+
+- oruga_teleop: Contiene el software de teleoperación del robot. A modo de ejemplo se han escrito dos nodos teleoperadores, uno con teclado y otro con joystick En ambos casos se procede de manera parecida: se lee del dispositivo -teclado o joystick- y se envía al nodo oruga el mensaje de tipo ToOrugaData que corresponda.
+

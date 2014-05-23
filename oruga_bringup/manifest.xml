@@ -1,0 +1,17 @@
+<package>
+  <description brief="oruga_bringup">
+
+     oruga_bringup
+
+  </description>
+  <author>Fran Real</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/oruga_bringup</url>
+  <depend package="oruga_msgs"/>
+  <depend package="serialcomm"/>
+  <depend package="roscpp"/>
+
+</package>
+
+

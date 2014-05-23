@@ -1,0 +1,12 @@
+<launch>
+
+  <!-- joy node -->
+  <node respawn="true" pkg="joy" type="joy_node" name="joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="autorepeat_rate" value="1" />
+  </node>
+
+  <node name="joyteleop" pkg="oruga_teleop" type="joy" />
+
+</launch>
+

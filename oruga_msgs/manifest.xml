@@ -1,0 +1,14 @@
+<package>
+  <description brief="oruga_msgs">
+
+     oruga_msgs
+
+  </description>
+  <author>Fran Real</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/oruga_msgs</url>
+
+</package>
+
+
