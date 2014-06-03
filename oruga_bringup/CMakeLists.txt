@@ -36,3 +36,4 @@ rosbuild_link_boost(orugacomm thread)
 rosbuild_add_executable(oruga src/oruganode.cpp)
 target_link_libraries(oruga orugacomm)
 
+rosbuild_add_executable(heartbeat src/heartbeat.cpp)

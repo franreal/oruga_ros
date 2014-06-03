@@ -1,6 +1,7 @@
 <launch>
 
   <node name="oruga" pkg="oruga_bringup" type="oruga" />
+  <node name="heart" pkg="oruga_bringup" type="heartbeat" />
 
 </launch>
 
