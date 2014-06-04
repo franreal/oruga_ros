@@ -6,7 +6,7 @@
 #define TX_FRAME_MAX_LENGTH 64
 
 OrugaComm::OrugaComm(std::string fromOrugaTopic, std::string toOrugaTopic, std::string portName, int baudRate): 
-rxStatus(LOST), rxIndex(0) {
+rxIndex(0), rxStatus(LOST) {
   rxBuffer = new unsigned char[RX_FRAME_MAX_LENGTH];
   txBuffer = new unsigned char[TX_FRAME_MAX_LENGTH];
   memset(txBuffer, 0 , TX_FRAME_MAX_LENGTH);
@@ -24,20 +24,16 @@ OrugaComm::~OrugaComm() {
   delete[] txBuffer;
 }
 
-void OrugaComm::writeToOrugaData() {
-  if(toOrugaCs.hasNewData()) {
-    oruga_msgs::OrugaData toOrugaData;
-    toOrugaCs.get(&toOrugaData);
-    size_t txFrameLength = buildFrameFromData(txBuffer, &toOrugaData);
-    write(txBuffer, txFrameLength);
-//     for(unsigned int i = 0; i < txFrameLength; i++) {
-//       write(&txBuffer[i], 1);
-//       sleep(1);  // Debug!
-//     }
-  }
+void OrugaComm::toOrugaCallback(const oruga_msgs::OrugaData::ConstPtr& msg) {
+  size_t txFrameLength = buildFrameFromData(txBuffer, msg.get());
+  write(txBuffer, txFrameLength);
+//   for(unsigned int i = 0; i < txFrameLength; i++) {
+//     write(&txBuffer[i], 1);
+//     sleep(1);  // Debug!
+//   }
 }
 
-size_t OrugaComm::buildFrameFromData(unsigned char *frame, oruga_msgs::OrugaData *data) {
+size_t OrugaComm::buildFrameFromData(unsigned char *frame, const oruga_msgs::OrugaData *data) {
   size_t valueSize = data->value.size();
   frame[0] = FRAME_HEADER;
   frame[1] = data->code;
@@ -94,5 +90,4 @@ void OrugaComm::buildDataFromFrame (oruga_msgs::OrugaData *data, unsigned char* 
 //     printf("%x\t", frame[i]);  // Debug!
 //   }
 //   printf("]\n");
-  
 }
