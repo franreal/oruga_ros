@@ -5,7 +5,7 @@ int main(int argc, char **argv) {
 
   ros::init(argc, argv, "oruga");
 
-  OrugaComm comm("oruga/command", "/dev/ttyUSB0", 57600);
+  OrugaComm comm("oruga/data", "oruga/command", "/dev/ttyUSB0", 57600);
   ros::Rate loop_rate(5);
 
   while(ros::ok()) {
