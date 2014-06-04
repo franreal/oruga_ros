@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <stdio.h>
 #include <ros/ros.h>
-#include <oruga_msgs/ToOrugaData.h>
+#include <oruga_msgs/OrugaData.h>
 
 #define KEYCODE_R 0x43
 #define KEYCODE_L 0x44
@@ -24,7 +24,7 @@ private:
 
 KeyTeleop::KeyTeleop() {
 
-  pub = nh.advertise<oruga_msgs::ToOrugaData>("oruga/command", 1);
+  pub = nh.advertise<oruga_msgs::OrugaData>("oruga/command", 1);
 }
 
 int kfd = 0;
@@ -77,7 +77,7 @@ void KeyTeleop::keyLoop() {
 
     //printf("value: 0x%02X\n", c);
 
-    oruga_msgs::ToOrugaData data;
+    oruga_msgs::OrugaData data;
 
     switch(c) {
       case KEYCODE_L:

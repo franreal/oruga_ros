@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include <oruga_msgs/ToOrugaData.h>
+#include <oruga_msgs/OrugaData.h>
 
 class HeartBeat {
 public:
@@ -9,11 +9,11 @@ public:
 private:
   ros::NodeHandle nh;
   ros::Publisher pub;
-  oruga_msgs::ToOrugaData data;
+  oruga_msgs::OrugaData data;
 };
 
 HeartBeat::HeartBeat(std::string toOrugaTopic) {
-  pub = nh.advertise<oruga_msgs::ToOrugaData>(toOrugaTopic, 1);
+  pub = nh.advertise<oruga_msgs::OrugaData>(toOrugaTopic, 1);
   data.code = 0x22;
   data.value.push_back(0);
 }

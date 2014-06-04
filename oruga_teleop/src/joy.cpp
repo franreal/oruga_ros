@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
-#include <oruga_msgs/ToOrugaData.h>
+#include <oruga_msgs/OrugaData.h>
 
 class JoyTeleop {
 public:
@@ -11,7 +11,7 @@ public:
 private:
   
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
-  void buildDataFromJoy (oruga_msgs::ToOrugaData* data, const sensor_msgs::Joy::ConstPtr& joy);
+  void buildDataFromJoy (oruga_msgs::OrugaData* data, const sensor_msgs::Joy::ConstPtr& joy);
 
   ros::NodeHandle nh;
 
@@ -22,7 +22,7 @@ private:
 
 JoyTeleop::JoyTeleop(std::string joyTopic, std::string toOrugaTopic) {
   joy_sub = nh.subscribe<sensor_msgs::Joy>(joyTopic, 10, &JoyTeleop::joyCallback, this);
-  tooruga_pub = nh.advertise<oruga_msgs::ToOrugaData>(toOrugaTopic, 1);
+  tooruga_pub = nh.advertise<oruga_msgs::OrugaData>(toOrugaTopic, 1);
 }
 
 
@@ -30,13 +30,13 @@ JoyTeleop::~JoyTeleop() {}
 
 
 void JoyTeleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
-  oruga_msgs::ToOrugaData data;
+  oruga_msgs::OrugaData data;
   buildDataFromJoy(&data, joy);
   tooruga_pub.publish(data);
 }
 
 
-void JoyTeleop::buildDataFromJoy (oruga_msgs::ToOrugaData* data, const sensor_msgs::Joy::ConstPtr& joy) {
+void JoyTeleop::buildDataFromJoy (oruga_msgs::OrugaData* data, const sensor_msgs::Joy::ConstPtr& joy) {
   data->code = 0xF4;
   data->value.push_back( 125*(1+joy->axes[4]) );
   data->value.push_back( 125*(1+joy->axes[1]) );
