@@ -4,7 +4,7 @@
 class HeartBeat {
 public:
   HeartBeat(std::string toOrugaTopic);
-  void toggle();
+  void toggleLeds();
   
 private:
   ros::NodeHandle nh;
@@ -18,7 +18,7 @@ HeartBeat::HeartBeat(std::string toOrugaTopic) {
   data.value.push_back(0);
 }
 
-void HeartBeat::toggle() {
+void HeartBeat::toggleLeds() {
   data.value[0] = !data.value[0];
   pub.publish(data);
 }
@@ -28,10 +28,10 @@ int main(int argc, char** argv) {
   ros::init(argc, argv, "heartbeat");
   HeartBeat heartbeat("oruga/command");
 
-  ros::Rate r(1);  // 1Hz
+  ros::Rate r(2);  // 2Hz
   while (ros::ok()) {
     
-    heartbeat.toggle();
+    heartbeat.toggleLeds();
     
     ros::spinOnce();
     r.sleep();
