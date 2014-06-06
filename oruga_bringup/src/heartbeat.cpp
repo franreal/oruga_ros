@@ -14,7 +14,7 @@ private:
 
 HeartBeat::HeartBeat(std::string toOrugaTopic) {
   pub = nh.advertise<oruga_msgs::OrugaData>(toOrugaTopic, 1);
-  data.code = 0x22;
+  data.code = oruga_msgs::OrugaData::SWITCH_LEDS;
   data.value.push_back(0);
 }
 
@@ -37,3 +37,4 @@ int main(int argc, char** argv) {
     r.sleep();
   }
 }
+

@@ -82,31 +82,31 @@ void KeyTeleop::keyLoop() {
     switch(c) {
       case KEYCODE_L:
         ROS_DEBUG("LEFT");
-        data.code = 0x03;
+        data.code = oruga_msgs::OrugaData::INC_RIGTH_DEC_LEFT;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_R:
         ROS_DEBUG("RIGHT");
-        data.code = 0x04;
+        data.code = oruga_msgs::OrugaData::INC_LEFT_DEC_RIGHT;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_U:
         ROS_DEBUG("UP");
-        data.code = 0x05;
+        data.code = oruga_msgs::OrugaData::INCREMENT_FORWARD;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_D:
         ROS_DEBUG("DOWN");
-        data.code = 0x06;
+        data.code = oruga_msgs::OrugaData::INCREMENT_BACKWARD;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_P:
         ROS_DEBUG("PANIC");
-        data.code = 0xF4;
+        data.code = oruga_msgs::OrugaData::ABS_R_L_MOTORS;
         data.value.push_back(125);
         data.value.push_back(125);
         dirty = true;

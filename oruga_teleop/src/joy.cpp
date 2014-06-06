@@ -37,7 +37,7 @@ void JoyTeleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
 
 
 void JoyTeleop::buildDataFromJoy (oruga_msgs::OrugaData* data, const sensor_msgs::Joy::ConstPtr& joy) {
-  data->code = 0xF4;
+  data->code = oruga_msgs::OrugaData::ABS_R_L_MOTORS;
   data->value.push_back( 125*(1+joy->axes[4]) );
   data->value.push_back( 125*(1+joy->axes[1]) );
 }
