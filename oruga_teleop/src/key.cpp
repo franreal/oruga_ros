@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <ros/ros.h>
 #include <oruga_msgs/OrugaData.h>
+#include <oruga_msgs/operation_code.h>
 
 #define KEYCODE_R 0x43
 #define KEYCODE_L 0x44
@@ -82,31 +83,31 @@ void KeyTeleop::keyLoop() {
     switch(c) {
       case KEYCODE_L:
         ROS_DEBUG("LEFT");
-        data.code = oruga_msgs::OrugaData::INC_RIGTH_DEC_LEFT;
+        data.code = operation_code::INC_RIGTH_DEC_LEFT;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_R:
         ROS_DEBUG("RIGHT");
-        data.code = oruga_msgs::OrugaData::INC_LEFT_DEC_RIGHT;
+        data.code = operation_code::INC_LEFT_DEC_RIGHT;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_U:
         ROS_DEBUG("UP");
-        data.code = oruga_msgs::OrugaData::INCREMENT_FORWARD;
+        data.code = operation_code::INCREMENT_FORWARD;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_D:
         ROS_DEBUG("DOWN");
-        data.code = oruga_msgs::OrugaData::INCREMENT_BACKWARD;
+        data.code = operation_code::INCREMENT_BACKWARD;
         data.value.push_back(10);
         dirty = true;
         break;
       case KEYCODE_P:
         ROS_DEBUG("PANIC");
-        data.code = oruga_msgs::OrugaData::ABS_R_L_MOTORS;
+        data.code = operation_code::ABS_R_L_MOTORS;
         data.value.push_back(125);
         data.value.push_back(125);
         dirty = true;
@@ -123,4 +124,3 @@ void KeyTeleop::keyLoop() {
 
   return;
 }
-

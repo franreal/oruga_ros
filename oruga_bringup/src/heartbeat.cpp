@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <oruga_msgs/OrugaData.h>
+#include <oruga_msgs/operation_code.h>
 
 class HeartBeat {
 public:
@@ -14,7 +15,7 @@ private:
 
 HeartBeat::HeartBeat(std::string toOrugaTopic) {
   pub = nh.advertise<oruga_msgs::OrugaData>(toOrugaTopic, 1);
-  data.code = oruga_msgs::OrugaData::SWITCH_LEDS;
+  data.code = operation_code::SWITCH_LEDS;
   data.value.push_back(0);
 }
 

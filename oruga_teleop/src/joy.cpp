@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
 #include <oruga_msgs/OrugaData.h>
+#include <oruga_msgs/operation_code.h>
 
 class JoyTeleop {
 public:
@@ -37,7 +38,7 @@ void JoyTeleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy) {
 
 
 void JoyTeleop::buildDataFromJoy (oruga_msgs::OrugaData* data, const sensor_msgs::Joy::ConstPtr& joy) {
-  data->code = oruga_msgs::OrugaData::ABS_R_L_MOTORS;
+  data->code = operation_code::ABS_R_L_MOTORS;
   data->value.push_back( 125*(1+joy->axes[4]) );
   data->value.push_back( 125*(1+joy->axes[1]) );
 }
@@ -50,4 +51,3 @@ int main(int argc, char** argv) {
 
   ros::spin();
 }
-
