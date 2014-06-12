@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <oruga_msgs/OrugaData.h>
 #include <oruga_msgs/operation_code.h>
+#include <unistd.h>
 
 class HeartBeat {
 public:
@@ -28,8 +29,28 @@ int main(int argc, char** argv) {
 
   ros::init(argc, argv, "heartbeat");
   HeartBeat heartbeat("oruga/command");
+  double frequency = 1;  // Default value: 1Hz
+  
+  int c;  // Parse command-line options
+  while ((c = getopt (argc, argv, "f:")) != -1) {
+    switch (c) {
+      case 'f':
+        frequency = atof(optarg);
+        break;
+      case '?':
+        if (optopt == 'c')
+          fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+        else if (isprint (optopt))
+          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+        else
+          fprintf (stderr, "Unknown option character `\\x%x'.\n", optopt);
+        return 1;
+      default:
+        abort();
+    }
+  }
 
-  ros::Rate r(2);  // 2Hz
+  ros::Rate r(frequency);
   while (ros::ok()) {
     
     heartbeat.toggleLeds();
@@ -38,4 +59,3 @@ int main(int argc, char** argv) {
     r.sleep();
   }
 }
-
