@@ -22,6 +22,7 @@ const uint8_t REQUEST_SENSOR  = 0x20;  // = 32
 const uint8_t RESPONSE_SENSOR = 0x21;  // = 33
 
 const uint8_t SWITCH_LEDS     = 0x22;  // = 34
+const uint8_t SWITCH_LIGHT    = 0x23;  // = 35
 
 // Ping
 const uint8_t REQUEST_PING  = 0x25;  // = 37

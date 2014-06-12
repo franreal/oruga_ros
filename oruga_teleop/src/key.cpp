@@ -5,11 +5,12 @@
 #include <oruga_msgs/OrugaData.h>
 #include <oruga_msgs/operation_code.h>
 
-#define KEYCODE_R 0x43
-#define KEYCODE_L 0x44
-#define KEYCODE_U 0x41
-#define KEYCODE_D 0x42
-#define KEYCODE_P 0x20
+#define KEYCODE_RIGHT 0x43
+#define KEYCODE_LEFT  0x44
+#define KEYCODE_UP    0x41
+#define KEYCODE_DOWN  0x42
+#define KEYCODE_SPACE 0x20
+#define KEYCODE_LIGHT  'l'
 
 class KeyTeleop {
 public:
@@ -18,12 +19,14 @@ public:
 
 private:
 
+  bool light;
+  
   ros::NodeHandle nh;
   ros::Publisher pub;
 
 };
 
-KeyTeleop::KeyTeleop() {
+KeyTeleop::KeyTeleop(): light(false) {
 
   pub = nh.advertise<oruga_msgs::OrugaData>("oruga/command", 1);
 }
@@ -81,35 +84,42 @@ void KeyTeleop::keyLoop() {
     oruga_msgs::OrugaData data;
 
     switch(c) {
-      case KEYCODE_L:
+      case KEYCODE_LEFT:
         ROS_DEBUG("LEFT");
         data.code = operation_code::INC_RIGTH_DEC_LEFT;
         data.value.push_back(10);
         dirty = true;
         break;
-      case KEYCODE_R:
+      case KEYCODE_RIGHT:
         ROS_DEBUG("RIGHT");
         data.code = operation_code::INC_LEFT_DEC_RIGHT;
         data.value.push_back(10);
         dirty = true;
         break;
-      case KEYCODE_U:
+      case KEYCODE_UP:
         ROS_DEBUG("UP");
         data.code = operation_code::INCREMENT_FORWARD;
         data.value.push_back(10);
         dirty = true;
         break;
-      case KEYCODE_D:
+      case KEYCODE_DOWN:
         ROS_DEBUG("DOWN");
         data.code = operation_code::INCREMENT_BACKWARD;
         data.value.push_back(10);
         dirty = true;
         break;
-      case KEYCODE_P:
+      case KEYCODE_SPACE:
         ROS_DEBUG("PANIC");
         data.code = operation_code::ABS_R_L_MOTORS;
         data.value.push_back(125);
         data.value.push_back(125);
+        dirty = true;
+        break;
+      case KEYCODE_LIGHT:
+        ROS_DEBUG("LIGHT");
+        data.code = operation_code::SWITCH_LIGHT;
+        light = !light;
+        data.value.push_back(light);
         dirty = true;
         break;
     }
